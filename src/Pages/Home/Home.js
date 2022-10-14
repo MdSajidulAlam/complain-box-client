@@ -1,9 +1,10 @@
 import React from 'react';
+import ComplainForm from '../ComplainForm/ComplainForm';
 
 const Home = () => {
     return (
         <div>
-            <h1 className='text-4xl text-green-600'>Hello from home</h1>
+            <ComplainForm />
         </div>
     );
 };

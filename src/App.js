@@ -27,6 +27,7 @@ function App() {
         <Route path='/signup' element={<Signup />}></Route>
         <Route path='/about' element={<About />}></Route>
         <Route path='/complaindetails/:id' element={<ComplainDetails />}></Route>
+        <Route path='/manageauthority/:id' element={<ManageAuthority />}></Route>
         <Route path='/dashboard' element={
           <RequireAuth>
             <Dashboard />
@@ -34,7 +35,6 @@ function App() {
         }>
           <Route index element={<MyProfile />}></Route>
           <Route path='users' element={<Users />}></Route>
-          <Route path='manageauthority' element={<ManageAuthority />}></Route>
           <Route path='mycomplains' element={<MyComplains />}></Route>
           <Route path='allcomplain' element={<AllComplain />}></Route>
         </Route>

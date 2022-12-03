@@ -167,8 +167,12 @@ const ComplainForm = () => {
                         </label>
                     </div>
 
-                    <button onClick={() => setOthers(!false)}> <input type="checkbox" className="toggle" /></button>
-                    <span className="label-text">Other</span>
+                    <div className='flex'>
+                        <button onClick={() => setOthers(!false)}> <input type="checkbox" className="toggle" /></button>
+                        <div className=' ml-3'>
+                            <h1><span className="label-text">Other</span></h1>
+                        </div>
+                    </div>
 
 
                     <div className="form-control w-full max-w-xs">

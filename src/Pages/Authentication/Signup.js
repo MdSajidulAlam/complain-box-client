@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useSendEmailVerification, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import Loading from '../Shared/Loading';
+import useToken from '../../hooks/useToken';
 
 const Signup = () => {
 
@@ -18,35 +19,50 @@ const Signup = () => {
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
 
-    const [sendEmailVerification, sending] = useSendEmailVerification(auth);
+    // const [sendEmailVerification, sending] = useSendEmailVerification(auth);
 
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
-    // const [token] = useToken(user || googleUser)
+    const [token] = useToken(user || googleUser)
     console.log(user);
     let signInError
 
 
-    if (loading || googleLoading || updating || sending) {
+    if (loading || googleLoading || updating) {
         return <Loading></Loading>
     }
     if (error || googleError || updateError) {
         signInError = <p className='text-red-500'><small>{error?.message || googleError?.message || updateError?.message}</small></p>
     }
 
+    const profile = {
+        name: user?.displayName,
+        email: user?.email
+    }
+    console.log(profile);
     const onSubmit = async data => {
         await createUserWithEmailAndPassword(data.email, data.password)
-        // await updateProfile({ displayName: data.name });
-        await sendEmailVerification()
-        console.log('user created', user.user);
+        await updateProfile({ displayName: data.name });
+        // fetch(`http://localhost:5000/post-user`, {
+        //     method: "POST",
+        //     headers: {
+        //         'content-type': 'application/json',
+        //         // "authorization": `Bearer ${localStorage.getItem('accessToken')}`
+        //     },
+        //     body: JSON.stringify(profile)
+        // })
+
+
+        // await sendEmailVerification()
+        // console.log('user created', user.user);
     };
 
-    if (user || googleUser) {
+    if (token) {
         navigate('/')
     }
 
     return (
-        <div className='flex justify-center items-center h-screen'>
+        <div className='flex justify-center items-center mt-12'>
             <div className="card w-96 bg-base-100 shadow-xl">
                 <div className="card-body">
                     <h2 className="text-center text-2xl font-bold">Sign Up</h2>

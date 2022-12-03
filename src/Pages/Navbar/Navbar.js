@@ -1,16 +1,20 @@
 import { signOut } from 'firebase/auth';
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
+import Loading from '../Shared/Loading';
 
 const Navbar = () => {
+
     const user = useAuthState(auth)
+    const navigate = useNavigate()
     const logout = () => {
         signOut(auth)
-        // localStorage.removeItem("accessToken")
+        localStorage.removeItem("accessToken")
     }
-    console.log(user);
+    // console.log(user);
     const manuItems = <>
         <li><NavLink className={({ isActive }) =>
             isActive ? "underline underline-offset-8" : undefined
@@ -28,6 +32,13 @@ const Navbar = () => {
         <li>{user[0] !== null ? <button onClick={logout} className="btn btn-ghost">Log Out</button> : <Link to='/login'>Login</Link>}</li>
         {/* <li></li> */}
     </>
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const complainId = parseInt(e.target.complain.value)
+        navigate(`/complaindetails/${complainId}`)
+    }
+
+
 
 
     return (
@@ -39,7 +50,20 @@ const Navbar = () => {
                     </label>
                     <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-[#323548] rounded-box w-52">
                         {manuItems}
+                        <div className="form-control">
+                            <form onSubmit={handleSubmit} className="input-group">
+                                <input name='complain' type="text" placeholder="Search…" className="input input-bordered" />
+                                <button className="btn btn-square">
+
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+
+
+                                </button>
+                            </form>
+                        </div>
                     </ul>
+
                 </div>
                 <Link to='/' className="btn btn-ghost normal-case text-xl">COMPLAIN BOX</Link>
             </div>
@@ -47,6 +71,14 @@ const Navbar = () => {
                 <ul className="menu menu-horizontal p-0">
                     {manuItems}
                 </ul>
+                <form onSubmit={handleSubmit} className="form-control">
+                    <div className="input-group">
+                        <input name='complain' type="text" placeholder="Search…" className="input input-bordered text-black" />
+                        <button className="btn btn-square">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                        </button>
+                    </div>
+                </form>
             </div>
             <div className="navbar-end lg:hidden">
                 <label tabIndex="1" htmlFor="dashboard-sidebar" className="btn btn-ghost ">
@@ -54,6 +86,9 @@ const Navbar = () => {
                 </label>
 
             </div>
+
+
+
         </div>
     );
 };

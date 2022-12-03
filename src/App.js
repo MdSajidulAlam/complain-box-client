@@ -13,6 +13,8 @@ import ManageAuthority from './Pages/Dashboard/ManageAuthority';
 import MyProfile from './Pages/Dashboard/MyProfile';
 import RequireAuth from './Pages/Authentication/RequireAuth';
 import MyComplains from './Pages/Dashboard/MyComplains';
+import AllComplain from './Pages/Dashboard/AllComplain';
+import ComplainDetails from './Pages/Navbar/ComplainDetails';
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signup' element={<Signup />}></Route>
         <Route path='/about' element={<About />}></Route>
+        <Route path='/complaindetails/:id' element={<ComplainDetails />}></Route>
         <Route path='/dashboard' element={
           <RequireAuth>
             <Dashboard />
@@ -33,6 +36,7 @@ function App() {
           <Route path='users' element={<Users />}></Route>
           <Route path='manageauthority' element={<ManageAuthority />}></Route>
           <Route path='mycomplains' element={<MyComplains />}></Route>
+          <Route path='allcomplain' element={<AllComplain />}></Route>
         </Route>
 
       </Routes>

@@ -7,7 +7,7 @@ const Dashboard = () => {
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content flex flex-col items-center justify-center">
                 {/* <!-- Page content here --> */}
-                <h2 className='text-3xl font-bold text-primary text-center mb-5'>Welcome to your Dashboard</h2>
+                {/* <h2 className='text-3xl font-bold text-primary text-center mt-24'>Welcome to your Dashboard</h2> */}
                 <Outlet />
 
             </div>
@@ -19,6 +19,7 @@ const Dashboard = () => {
                     <li><Link to='/dashboard/users'>All Users</Link></li>
                     <li><Link to='/dashboard/manageauthority'>Manage Authority</Link></li>
                     <li><Link to='/dashboard/mycomplains'>My Complains</Link></li>
+                    <li><Link to='/dashboard/allcomplain'>All Complains</Link></li>
                 </ul>
 
             </div>
